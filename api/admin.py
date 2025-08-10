@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import ActionHistory, Company, Complaint, Producer, User
+from .models import Company, Complaint, Producer, User
 
 
 @admin.register(User)
@@ -11,15 +11,16 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ['role', 'is_active', 'last_activity']
     search_fields = ['email', 'first_name', 'surname']
     ordering = ['email']
+    exclude = ['signature', 'last_activity']
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {
-         'fields': ('first_name', 'surname', 'signature', 'role')}),
+         'fields': ('first_name', 'surname', 'role')}),
         ('Permissions', {'fields': ('is_active', 'is_staff',
          'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {
-         'fields': ('last_login', 'date_joined', 'last_activity')}),
+         'fields': ('last_login', 'date_joined')}),
     )
 
     add_fieldsets = (
@@ -47,17 +48,36 @@ class ProducerAdmin(admin.ModelAdmin):
 
 @admin.register(Complaint)
 class ComplaintAdmin(admin.ModelAdmin):
-    list_display = ['number', 'type', 'status', 'submit_date', 'exit_date']
+    list_display = ['number', 'type', 'status', 'barcode',
+                    'quantity_of_good', 'registration_unit', 'submit_date']
     list_filter = ['type', 'status', 'submit_date']
     search_fields = ['number']
     ordering = ['-submit_date']
     date_hierarchy = 'submit_date'
+    list_editable = ['status']  # Allow quick status changes from list view
 
-
-@admin.register(ActionHistory)
-class ActionHistoryAdmin(admin.ModelAdmin):
-    list_display = ['action', 'email', 'date', 'details']
-    list_filter = ['action', 'date', 'email']
-    search_fields = ['email__email', 'details']
-    ordering = ['-date']
-    date_hierarchy = 'date'
+    def get_fieldsets(self, request, obj=None):
+        if obj is None:  # Creating a new complaint
+            return (
+                (None, {
+                    'fields': ('number', 'type')
+                }),
+                ('Product Information', {
+                    'fields': ('barcode', 'quantity_of_good', 'registration_unit')
+                }),
+                ('Details', {
+                    'fields': ('description', 'demand')
+                }),
+            )
+        else:  # Editing an existing complaint
+            return (
+                (None, {
+                    'fields': ('number', 'type', 'status', 'submit_date', 'exit_date')
+                }),
+                ('Product Information', {
+                    'fields': ('barcode', 'quantity_of_good', 'registration_unit')
+                }),
+                ('Details', {
+                    'fields': ('description', 'demand')
+                }),
+            )

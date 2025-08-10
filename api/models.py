@@ -1,4 +1,5 @@
 import uuid
+from enum import Enum
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.exceptions import ValidationError
@@ -109,10 +110,8 @@ class Complaint(models.Model):
 
     # Complaint type choices
     class ComplaintType(models.TextChoices):
-        LOGISTICS = 'logistics', 'Logistics'
-        QUALITY = 'quality', 'Quality'
-        CUSTOMER_SERVICE = 'customer_service', 'Customer Service'
-        SAFETY = 'safety', 'Safety'
+        GUARANTEE = 'guarantee', 'Gwarancja'
+        WARRANTY = 'warranty', 'Rękojmia'
 
     type = models.CharField(
         max_length=20,
@@ -120,7 +119,38 @@ class Complaint(models.Model):
     )
     submit_date = models.DateField(auto_now_add=True)
     exit_date = models.DateField(null=True, blank=True)
-    status = models.CharField(max_length=50)
+
+    # Registration unit choices
+    class RegistrationUnit(models.TextChoices):
+        METER_LINEAR = 'meter_linear', 'Metr bieżący'
+        METER_SQUARE = 'meter_square', 'Metr kwadratowy'
+        METER_CUBIC = 'meter_cubic', 'Metr sześcienny'
+        PIECE = 'piece', 'Sztuka'
+
+    # New fields
+    barcode = models.CharField(max_length=100, blank=True, null=True)
+    quantity_of_good = models.IntegerField(blank=True, null=True)
+    registration_unit = models.CharField(
+        max_length=20,
+        choices=RegistrationUnit.choices,
+        blank=True,
+        null=True
+    )
+    description = models.TextField(blank=True, null=True)
+    demand = models.TextField(blank=True, null=True)
+
+    # Complaint status choices
+    class ComplaintStatus(models.TextChoices):
+        NOT_STARTED = 'not_started', 'Not Started'
+        IN_PROGRESS = 'in_progress', 'In Progress'
+        ON_HOLD = 'on_hold', 'On Hold'
+        COMPLETE = 'complete', 'Complete'
+
+    status = models.CharField(
+        max_length=20,
+        choices=ComplaintStatus.choices,
+        default=ComplaintStatus.NOT_STARTED
+    )
 
     def __str__(self):
         return f"Complaint {self.number}"
