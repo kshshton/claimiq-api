@@ -1,6 +1,6 @@
 # ClaimIQ API - Django REST Framework
 
-This is a Django REST Framework implementation of the ClaimIQ complaint management system, converted from the original FastAPI/SQLModel project.
+This is a Django REST Framework implementation of the ClaimIQ complaint management system.
 
 ## Features
 
@@ -256,25 +256,6 @@ For production deployment:
 5. Use environment variables for sensitive data
 6. Set up proper logging
 7. Configure HTTPS
-
-## Differences from Original FastAPI Version
-
-### Advantages of Django REST Framework:
-
-- **Admin Interface**: Built-in admin for data management
-- **Migrations**: Robust database migration system
-- **Authentication**: Built-in user authentication
-- **Permissions**: Granular permission system
-- **Validation**: Comprehensive form and model validation
-- **Ecosystem**: Large ecosystem of third-party packages
-
-### Key Changes:
-
-- SQLModel → Django ORM
-- Pydantic → Django REST Framework serializers
-- FastAPI → Django REST Framework viewsets
-- Manual database setup → Django migrations
-- Custom authentication → Django built-in auth
 
 ## License
 
