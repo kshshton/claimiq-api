@@ -257,25 +257,6 @@ For production deployment:
 6. Set up proper logging
 7. Configure HTTPS
 
-## Differences from Original FastAPI Version
-
-### Advantages of Django REST Framework:
-
-- **Admin Interface**: Built-in admin for data management
-- **Migrations**: Robust database migration system
-- **Authentication**: Built-in user authentication
-- **Permissions**: Granular permission system
-- **Validation**: Comprehensive form and model validation
-- **Ecosystem**: Large ecosystem of third-party packages
-
-### Key Changes:
-
-- SQLModel → Django ORM
-- Pydantic → Django REST Framework serializers
-- FastAPI → Django REST Framework viewsets
-- Manual database setup → Django migrations
-- Custom authentication → Django built-in auth
-
 ## License
 
 This project is licensed under the MIT License.
