@@ -1,6 +1,6 @@
 # ClaimIQ API - Django REST Framework
 
-This is a Django REST Framework implementation of the ClaimIQ complaint management system, converted from the original FastAPI/SQLModel project.
+This is a Django REST Framework implementation of the ClaimIQ complaint management system.
 
 ## Features
 
