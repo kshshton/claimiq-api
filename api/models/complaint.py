@@ -11,7 +11,6 @@ class Complaint(models.Model):
     """Complaint model"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     number = models.CharField(max_length=50, unique=True)
-
     type = models.CharField(
         max_length=20,
         choices=ComplaintType.choices

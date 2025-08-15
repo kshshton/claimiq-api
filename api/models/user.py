@@ -36,13 +36,11 @@ class User(AbstractUser):
     surname = models.CharField(max_length=150)
     signature = models.BinaryField(null=True, blank=True)
     last_activity = models.DateTimeField(auto_now=True)
-
     role = models.CharField(
         max_length=10,
         choices=UserRole.choices,
         default=UserRole.USER
     )
-
     # Override username field to use email
     username = None
     USERNAME_FIELD = 'email'

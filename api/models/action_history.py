@@ -14,7 +14,6 @@ class ActionHistory(models.Model):
         to_field='email',
         db_column='email'
     )
-
     action = models.CharField(
         max_length=20,
         choices=ActionType.choices
