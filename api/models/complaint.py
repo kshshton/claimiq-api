@@ -4,7 +4,7 @@ import uuid
 from django.core.validators import MinValueValidator
 from django.db import models
 
-from ..enums import ComplaintStatus, ComplaintType, RegistrationUnit
+from ..enums import ComplaintType, RegistrationUnit
 
 
 class Complaint(models.Model):
@@ -31,10 +31,12 @@ class Complaint(models.Model):
     )
     description = models.TextField(blank=True, null=True)
     demand = models.TextField(blank=True, null=True)
-    status = models.CharField(
-        max_length=20,
-        choices=ComplaintStatus.choices,
-        default=ComplaintStatus.NOT_STARTED
+    status = models.ForeignKey(
+        "ComplaintStatus",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="complaints"
     )
     decision = models.ForeignKey(
         "ComplaintDecision",
@@ -50,3 +52,27 @@ class Complaint(models.Model):
 
     def __str__(self):
         return f"Complaint {self.number}"
+
+
+class ComplaintDecision(models.Model):
+    """Complaint decision choices as a separate model"""
+    label = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.label
+
+    class Meta:
+        verbose_name = "Complaint Decision"
+        verbose_name_plural = "Complaint Decisions"
+
+
+class ComplaintStatus(models.Model):
+    """Complaint status choices as a separate model"""
+    label = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.label
+
+    class Meta:
+        verbose_name = "Complaint Status"
+        verbose_name_plural = "Complaint Statuses"
