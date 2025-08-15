@@ -39,7 +39,7 @@ class Complaint(models.Model):
 
     # Relation
     user = models.ForeignKey(
-        'User', on_delete=models.CASCADE, null=True, blank=True, related_name='complaints')
+        'User', on_delete=models.SET_NULL, null=True, blank=True, related_name='complaints')
 
     def __str__(self):
         return f"Complaint {self.number}"
