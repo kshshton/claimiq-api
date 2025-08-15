@@ -11,9 +11,13 @@ class Complaint(models.Model):
     """Complaint model"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     number = models.CharField(max_length=50, unique=True)
-    type = models.CharField(
-        max_length=20,
-        choices=ComplaintType.choices
+    type = models.ForeignKey(
+        "ComplaintType",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="complaints",
+        default=None
     )
     submit_date = models.DateField(auto_now_add=True)
     date_of_purchase = models.DateField(default=datetime.date.today)
