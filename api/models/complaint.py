@@ -1,3 +1,4 @@
+import datetime
 import uuid
 
 from django.core.validators import MinValueValidator
@@ -16,7 +17,7 @@ class Complaint(models.Model):
         choices=ComplaintType.choices
     )
     submit_date = models.DateField(auto_now_add=True)
-    date_of_purchase = models.DateField()
+    date_of_purchase = models.DateField(default=datetime.date.today)
     exit_date = models.DateField(null=True, blank=True)
 
     # New fields
