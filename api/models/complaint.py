@@ -4,8 +4,7 @@ import uuid
 from django.core.validators import MinValueValidator
 from django.db import models
 
-from ..enums import (ComplaintDecision, ComplaintStatus, ComplaintType,
-                     RegistrationUnit)
+from ..enums import ComplaintStatus, ComplaintType, RegistrationUnit
 
 
 class Complaint(models.Model):
@@ -37,11 +36,12 @@ class Complaint(models.Model):
         choices=ComplaintStatus.choices,
         default=ComplaintStatus.NOT_STARTED
     )
-    decision = models.CharField(
-        max_length=20,
-        choices=ComplaintDecision.choices,
+    decision = models.ForeignKey(
+        "ComplaintDecision",
+        on_delete=models.SET_NULL,
         blank=True,
-        null=True
+        null=True,
+        related_name="complaints"
     )
 
     # Relation

@@ -21,13 +21,3 @@ class ComplaintStatus(models.TextChoices):
     IN_PROGRESS = 'in_progress', 'In Progress'
     ON_HOLD = 'on_hold', 'On Hold'
     COMPLETE = 'complete', 'Complete'
-
-
-class ComplaintDecision(models.TextChoices):
-    """Complaint decision choices"""
-    CORRECTION = 'correction', 'Korekta'
-    EXCHANGE = 'exchange', 'Wymiana'
-    ADD_GOODS = 'add_goods', 'Dosłanie towaru'
-    ADD_ITEM = 'add_item', 'Dosłanie elementu'
-    REJECTION = 'rejection', 'Odrzucenie'
-    DISCOUNT = 'discount', 'Zniżka'
