@@ -4,7 +4,7 @@ import uuid
 from django.core.validators import MinValueValidator
 from django.db import models
 
-from ..enums import ComplaintType, RegistrationUnit
+from ..enums import ComplaintType
 
 
 class Complaint(models.Model):
@@ -23,19 +23,20 @@ class Complaint(models.Model):
     barcode = models.CharField(max_length=100, blank=True, null=True)
     quantity_of_good = models.IntegerField(
         blank=True, null=True, validators=[MinValueValidator(0)])
-    registration_unit = models.CharField(
-        max_length=20,
-        choices=RegistrationUnit.choices,
+    registration_unit = models.ForeignKey(
+        "RegistrationUnit",
+        on_delete=models.SET_NULL,
+        null=True,
         blank=True,
-        null=True
+        related_name="complaints"
     )
     description = models.TextField(blank=True, null=True)
     demand = models.TextField(blank=True, null=True)
     status = models.ForeignKey(
         "ComplaintStatus",
         on_delete=models.SET_NULL,
-        blank=True,
         null=True,
+        blank=True,
         related_name="complaints"
     )
     decision = models.ForeignKey(
@@ -43,7 +44,8 @@ class Complaint(models.Model):
         on_delete=models.SET_NULL,
         blank=True,
         null=True,
-        related_name="complaints"
+        related_name="complaints",
+        default=None
     )
 
     # Relation
@@ -52,27 +54,3 @@ class Complaint(models.Model):
 
     def __str__(self):
         return f"Complaint {self.number}"
-
-
-class ComplaintDecision(models.Model):
-    """Complaint decision choices as a separate model"""
-    label = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.label
-
-    class Meta:
-        verbose_name = "Complaint Decision"
-        verbose_name_plural = "Complaint Decisions"
-
-
-class ComplaintStatus(models.Model):
-    """Complaint status choices as a separate model"""
-    label = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.label
-
-    class Meta:
-        verbose_name = "Complaint Status"
-        verbose_name_plural = "Complaint Statuses"

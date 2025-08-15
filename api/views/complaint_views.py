@@ -4,8 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.response import Response
 
-from ..enums import ComplaintStatus
 from ..models import Complaint
+from ..models.dictionaries.complaint_status import ComplaintStatus
 from ..serializers import ComplaintSerializer
 
 
@@ -21,13 +21,15 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'])
     def close_complaint(self, request, pk=None):
         complaint = self.get_object()
-        complaint.status = ComplaintStatus.COMPLETE
+        complete_status = ComplaintStatus.objects.get(code="complete")
+        complaint.status = complete_status
         complaint.save()
         return Response({'message': 'Complaint closed successfully'})
 
     @action(detail=True, methods=['post'])
     def reopen_complaint(self, request, pk=None):
         complaint = self.get_object()
-        complaint.status = ComplaintStatus.NOT_STARTED
+        not_started_status = ComplaintStatus.objects.get(code="not_started")
+        complaint.status = not_started_status
         complaint.save()
         return Response({'message': 'Complaint reopened successfully'})
