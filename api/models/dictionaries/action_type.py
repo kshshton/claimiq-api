@@ -1,8 +1,8 @@
 from django.db import models
 
 
-class ComplaintType(models.Model):
-    """Complaint type choices as a separate model"""
+class ActionType(models.Model):
+    """Action type choices as a separate model"""
     code = models.CharField(
         max_length=50, unique=True, null=True)
     label = models.CharField(max_length=100)
@@ -11,5 +11,5 @@ class ComplaintType(models.Model):
         return self.label
 
     class Meta:
-        verbose_name = "Complaint Type"
-        verbose_name_plural = "Complaint Types"
+        verbose_name = "Action Type"
+        verbose_name_plural = "Action Types"

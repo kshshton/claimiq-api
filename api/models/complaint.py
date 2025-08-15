@@ -4,8 +4,6 @@ import uuid
 from django.core.validators import MinValueValidator
 from django.db import models
 
-from ..enums import ComplaintType
-
 
 class Complaint(models.Model):
     """Complaint model"""

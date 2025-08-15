@@ -2,7 +2,7 @@ from django.db import models
 
 
 class RegistrationUnit(models.Model):
-    """Registration unit model"""
+    """Registration unit choices as a separate model"""
     code = models.CharField(
         max_length=50, unique=True, default="unit")
     label = models.CharField(max_length=100)
