@@ -3,7 +3,7 @@ from enum import Enum
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.exceptions import ValidationError
-from django.core.validators import EmailValidator
+from django.core.validators import MinValueValidator
 from django.db import models
 from email_validator import EmailNotValidError, validate_email
 
@@ -118,6 +118,7 @@ class Complaint(models.Model):
         choices=ComplaintType.choices
     )
     submit_date = models.DateField(auto_now_add=True)
+    date_of_purchase = models.DateField()
     exit_date = models.DateField(null=True, blank=True)
 
     # Registration unit choices
@@ -129,7 +130,8 @@ class Complaint(models.Model):
 
     # New fields
     barcode = models.CharField(max_length=100, blank=True, null=True)
-    quantity_of_good = models.IntegerField(blank=True, null=True)
+    quantity_of_good = models.IntegerField(
+        blank=True, null=True, validators=[MinValueValidator(0)])
     registration_unit = models.CharField(
         max_length=20,
         choices=RegistrationUnit.choices,

@@ -60,7 +60,7 @@ class ComplaintAdmin(admin.ModelAdmin):
         if obj is None:  # Creating a new complaint
             return (
                 (None, {
-                    'fields': ('number', 'type')
+                    'fields': ('number', 'date_of_purchase', 'type')
                 }),
                 ('Product Information', {
                     'fields': ('barcode', 'quantity_of_good', 'registration_unit')
