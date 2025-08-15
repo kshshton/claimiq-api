@@ -31,12 +31,15 @@ class Complaint(models.Model):
     )
     description = models.TextField(blank=True, null=True)
     demand = models.TextField(blank=True, null=True)
-
     status = models.CharField(
         max_length=20,
         choices=ComplaintStatus.choices,
         default=ComplaintStatus.NOT_STARTED
     )
+
+    # Relation
+    user = models.ForeignKey(
+        'User', on_delete=models.CASCADE, null=True, blank=True, related_name='complaints')
 
     def __str__(self):
         return f"Complaint {self.number}"
