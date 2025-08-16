@@ -1,8 +1,8 @@
 from rest_framework import permissions, viewsets
 from rest_framework.filters import OrderingFilter, SearchFilter
 
-from ..models.dictionaries.producer import Producer
-from ..serializers.dictionaries.producer_serializers import ProducerSerializer
+from ...models.dictionaries.producer import Producer
+from ...serializers.dictionaries.producer_serializers import ProducerSerializer
 
 
 class ProducerViewSet(viewsets.ModelViewSet):
