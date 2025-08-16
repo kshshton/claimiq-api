@@ -8,9 +8,9 @@ from .dictionaries.complaint_decision_serializers import \
 from .dictionaries.complaint_status_serializers import \
     ComplaintStatusSerializer
 from .dictionaries.complaint_type_serializers import ComplaintTypeSerializer
+from .dictionaries.producer_serializers import ProducerSerializer
 from .dictionaries.registration_unit_serializers import \
     RegistrationUnitSerializer
-from .producer_serializers import ProducerSerializer
 from .user_serializers import UserCreateSerializer, UserSerializer
 
 __all__ = [

@@ -6,8 +6,8 @@ from .dictionaries.action_type import ActionType
 from .dictionaries.complaint_decision import ComplaintDecision
 from .dictionaries.complaint_status import ComplaintStatus
 from .dictionaries.complaint_type import ComplaintType
+from .dictionaries.producer import Producer
 from .dictionaries.registration_unit import RegistrationUnit
-from .producer import Producer
 from .user import CustomUserManager, User
 
 __all__ = [

@@ -14,7 +14,8 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     serializer_class = ComplaintSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['type', 'status', 'submit_date']
+    filterset_fields = ['commodity_name',
+                        'producer', 'type', 'status', 'submit_date']
     search_fields = ['number']
     ordering_fields = ['submit_date', 'exit_date', 'number']
 

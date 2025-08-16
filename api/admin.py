@@ -86,9 +86,10 @@ class ActionTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Complaint)
 class ComplaintAdmin(admin.ModelAdmin):
-    list_display = ['number', 'type', 'status', 'barcode',
-                    'quantity_of_good', 'registration_unit', 'submit_date']
-    list_filter = ['type', 'status', 'submit_date']
+    list_display = ['number', 'producer', 'type', 'status', 'barcode',
+                    'quantity', 'registration_unit', 'submit_date']
+    list_filter = ['commodity_name', 'producer',
+                   'type', 'status', 'submit_date']
     search_fields = ['number']
     ordering = ['-submit_date']
     date_hierarchy = 'submit_date'
@@ -98,10 +99,10 @@ class ComplaintAdmin(admin.ModelAdmin):
         if obj is None:  # Creating a new complaint
             return (
                 (None, {
-                    'fields': ('number', 'date_of_purchase', 'type')
+                    'fields': ('number', 'commodity_name', 'producer', 'date_of_purchase', 'type')
                 }),
                 ('Product Information', {
-                    'fields': ('barcode', 'quantity_of_good', 'registration_unit')
+                    'fields': ('barcode', 'quantity', 'registration_unit')
                 }),
                 ('Details', {
                     'fields': ('description', 'demand')
@@ -110,10 +111,10 @@ class ComplaintAdmin(admin.ModelAdmin):
         else:  # Editing an existing complaint
             return (
                 (None, {
-                    'fields': ('number', 'type', 'status', 'submit_date', 'exit_date')
+                    'fields': ('number', 'producer', 'type', 'status', 'exit_date')
                 }),
                 ('Product Information', {
-                    'fields': ('barcode', 'quantity_of_good', 'registration_unit')
+                    'fields': ('barcode', 'quantity', 'registration_unit')
                 }),
                 ('Details', {
                     'fields': ('description', 'demand')

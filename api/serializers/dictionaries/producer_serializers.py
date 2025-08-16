@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..models import Producer
+from ...models.dictionaries.producer import Producer
 
 
 class ProducerSerializer(serializers.ModelSerializer):

@@ -9,6 +9,7 @@ class Complaint(models.Model):
     """Complaint model"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     number = models.CharField(max_length=50, unique=True)
+    commodity_name = models.CharField(max_length=255)
     type = models.ForeignKey(
         "ComplaintType",
         on_delete=models.SET_NULL,
@@ -23,8 +24,15 @@ class Complaint(models.Model):
 
     # New fields
     barcode = models.CharField(max_length=100, blank=True, null=True)
-    quantity_of_good = models.IntegerField(
+    quantity = models.IntegerField(
         blank=True, null=True, validators=[MinValueValidator(0)])
+    producer = models.ForeignKey(
+        "Producer",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="complaints"
+    )
     registration_unit = models.ForeignKey(
         "RegistrationUnit",
         on_delete=models.SET_NULL,
