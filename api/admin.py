@@ -94,6 +94,7 @@ class ComplaintAdmin(admin.ModelAdmin):
     ordering = ['-submit_date']
     date_hierarchy = 'submit_date'
     list_editable = ['status']  # Allow quick status changes from list view
+    readonly_fields = ['deadline']
 
     def get_fieldsets(self, request, obj=None):
         if obj is None:  # Creating a new complaint
@@ -111,7 +112,7 @@ class ComplaintAdmin(admin.ModelAdmin):
         else:  # Editing an existing complaint
             return (
                 (None, {
-                    'fields': ('number', 'producer', 'type', 'status', 'exit_date')
+                    'fields': ('number', 'producer', 'type', 'status', 'exit_date', 'deadline')
                 }),
                 ('Product Information', {
                     'fields': ('barcode', 'quantity', 'registration_unit')

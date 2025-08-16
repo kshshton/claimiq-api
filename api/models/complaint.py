@@ -1,8 +1,12 @@
-import datetime
 import uuid
+from datetime import date, timedelta
 
 from django.core.validators import MinValueValidator
 from django.db import models
+
+
+def default_deadline():
+    return date.today() + timedelta(days=15)
 
 
 class Complaint(models.Model):
@@ -19,8 +23,10 @@ class Complaint(models.Model):
         default=None
     )
     submit_date = models.DateField(auto_now_add=True)
-    date_of_purchase = models.DateField(default=datetime.date.today)
+    date_of_purchase = models.DateField(default=date.today)
     exit_date = models.DateField(null=True, blank=True)
+    deadline = models.DateField(
+        null=True, blank=True, default=default_deadline)
 
     # New fields
     barcode = models.CharField(max_length=100, blank=True, null=True)
